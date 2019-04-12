@@ -1,0 +1,41 @@
+---
+title: "AdvancedGgplot2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R ggplot2
+
+Travail avancé sur la libraire ggplot2. On commence par importer les bibliothèques nécessaires.
+
+```{r load, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(hrbrthemes)
+library(viridis)
+library(plotly)
+```
+
+## General appearance
+
+On travaille sur les prix des Airbnb de la côte d'Azur
+
+```{r 1st chart, warning=FALSE, message=FALSE}
+# Load dataset from github
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+
+# Make the histogram
+data %>%
+  filter( price<300 ) %>%
+  ggplot( aes(x=price)) +
+    geom_histogram(binwidth = 10) +
+    ggtitle("Airbnb price on the French Riviera") +
+    xlab("Price") + 
+    ylab("Number of appartments") +
+    xlim(0, 300) +
+    ylim(0,1000) +
+    theme(plot.title = element_text(size = 12, colour = "red"))
+```
