@@ -25,17 +25,15 @@ On travaille sur les prix des Airbnb de la côte d'Azur
 
 ```{r 1st chart, warning=FALSE, message=FALSE}
 # Load dataset from github
-data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/1_OneNum.csv", header=TRUE)
+data <- read.table("https://raw.githubusercontent.com/holtzy/data_to_viz/master/Example_dataset/3_TwoNumOrdered.csv", header=T)
+data$date <- as.Date(data$date)
 
-# Make the histogram
+#plot
 data %>%
-  filter( price<300 ) %>%
-  ggplot( aes(x=price)) +
-    geom_histogram(binwidth = 10) +
-    ggtitle("Airbnb price on the French Riviera") +
-    xlab("Price") + 
-    ylab("Number of appartments") +
-    xlim(0, 300) +
-    ylim(0,1000) +
-    theme(plot.title = element_text(size = 12, colour = "red"))
+  ggplot( aes(x = date, y = value)) +
+    geom_line(color = "#69b3a2") +
+    annotate(geom = "point", x =as.Date("2017-12-17"),y = 20089, size = 10, shape = 21)+
+    annotate(geom = "text", x = as.Date("2016-11-17"), y=20089, label ="Pic de valeur atteint par le bitcoin") + 
+    geom_hline(yintercept = 5000)
+    
 ```
